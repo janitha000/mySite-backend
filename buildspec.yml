@@ -13,7 +13,7 @@ phases:
     pre_build: 
         commands: 
             - "echo Logging in to Docker Hub..."
-    artifacts:    
-        files:
-            - '**/*'
+artifacts:    
+    files:
+        - '**/*'
 version: 0.1
