@@ -18,6 +18,7 @@ const io = socketIO(server);
 const repoRouter = require('./routes/repositoryRoutes');
 const authRouter = require('./routes/authRoutes');
 const queueRouter = require('./routes/queueRoutes');
+const analyticsRouter = require('./routes/analyticsRoutes');
 
 const socketIOService = require('./services/socketIOService');
 socketIOService.start(io);
@@ -27,6 +28,7 @@ app.get('/', (req, res) => res.send({status: "Welcome to my site github integrat
 app.use('/repositories', repoRouter)
 app.use('/auth', authRouter)
 app.use('/queue', queueRouter)
+app.use('/analytics', analyticsRouter)
 
 server.listen(port, () => {
     console.log('Application is running and listening on port 3001')
