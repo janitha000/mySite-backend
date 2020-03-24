@@ -1,8 +1,11 @@
-const aws = require('aws-sdk')
+const AWS = require('aws-sdk')
 
 exports.getSentiments = (text) => {
     return new Promise((resolve, reject) => {
-        let comprehend = new aws.Comprehend({apiVersion: '2017-11-27'});
+        AWS.config.update({region:'us-east-1'});
+
+        let comprehend = new AWS.Comprehend({apiVersion: '2017-11-27'});
+
 
         let params = {
             LanguageCode: 'en', 
