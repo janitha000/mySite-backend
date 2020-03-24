@@ -19,15 +19,8 @@ const repoRouter = require('./routes/repositoryRoutes');
 const authRouter = require('./routes/authRoutes');
 const queueRouter = require('./routes/queueRoutes');
 
-
-io.on('connection', (socket) => {
-    console.log('user connected');
-    socket.emit('ConnectonEvent', 'React user connected')
-
-    socket.on('disconnect', () => {
-        console.log('User disconnected')
-    })
-})
+const socketIOService = require('./services/socketIOService');
+socketIOService.start(io);
 
 app.get('/', (req, res) => res.send({status: "Welcome to my site github integration"}));
 
