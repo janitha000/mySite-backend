@@ -8,10 +8,10 @@ rabbitMQConnection((connection) => {
             throw new Error(err);
         }
 
-        const queue = 'main queue'
-        channel.assertQueue(queue, {
-            durable: false
-        });
+         const queue = 'main-queue'
+        // channel.assertQueue(queue, {
+        //     durable: false
+        // });
 
         rabbitMQChannel = channel
         console.log(" [*] Waiting for messages in %s. To exit press CTRL+C", queue);
@@ -24,8 +24,8 @@ rabbitMQConnection((connection) => {
     })
 })
 
-export const publishToQueue = async(queueName, data) => {
-    rabbitMQConnection.sendToQueue(queueName, new Buffer(data));
+exports.publishToQueue = async(queueName, data) => {
+    rabbitMQChannel.sendToQueue(queueName, new Buffer(data));
 }
 
 process.on('exit', (code) => {
