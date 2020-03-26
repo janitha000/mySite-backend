@@ -1,0 +1,9 @@
+{
+    "accessKeyId": "AKIAZEXPBHPRBT25YLO6",
+    "secretAccessKey": "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",
+    "region": "us-east-1",
+    "apiVersions": {
+      "s3": "2006-03-01",
+      "ses": "2010-12-01"
+    }
+}

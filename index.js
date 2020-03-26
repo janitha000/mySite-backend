@@ -22,6 +22,9 @@ const analyticsRouter = require('./routes/analyticsRoutes');
 
 const socketIOService = require('./services/socketIOService');
 socketIOService.start(io);
+const redisService = require('./services/redisService')
+redisService.startConnection();
+
 
 app.get('/', (req, res) => res.send({status: "Welcome to my site github integration"}));
 

@@ -2,7 +2,6 @@ global.fetch = require('node-fetch')
 global.navigator = () => null;
 
 const AmazonCognitoIdentity = require('amazon-cognito-identity-js');
-const request = require('request')
 
 const userPoolId = 'us-east-1_mIZPhv0YF';
 const clientId = '7q9tdoa66324d270dm0v6daacq';
@@ -12,6 +11,7 @@ const poolData = {
     ClientId: clientId
 }
 const userPool = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
 
 exports.Register = (body) => {
     return new Promise((resolve, reject) => {
@@ -23,9 +23,9 @@ exports.Register = (body) => {
         let attributeList = [];
 
         // attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'name' , Value : name}))
-        attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'email' , Value : email}))
-        attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: "given_name" , Value : firstName}))
-        attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'family_name', Value : lastName }))
+        attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'email', Value: email }))
+        attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: "given_name", Value: firstName }))
+        attributeList.push(new AmazonCognitoIdentity.CognitoUserAttribute({ Name: 'family_name', Value: lastName }))
 
         userPool.signUp(email, password, attributeList, null, (err, res) => {
             if (err) {
@@ -43,9 +43,20 @@ exports.Register = (body) => {
 
 exports.Login = (body) => {
     return new Promise((resolve, reject) => {
+
+        const userPoolId = 'us-east-1_mIZPhv0YF';
+        const clientId = '7q9tdoa66324d270dm0v6daacq';
+
+        const poolData = {
+            UserPoolId: userPoolId,
+            ClientId: clientId
+        }
+        const userPool2 = new AmazonCognitoIdentity.CognitoUserPool(poolData);
+
+
+
         let userName = body.userName;
         let password = body.password;
-        const userPool = 'my-site-cog';
 
 
         let authenticationDetails = new AmazonCognitoIdentity.AuthenticationDetails({
@@ -55,8 +66,10 @@ exports.Login = (body) => {
 
         let userData = {
             UserName: userName,
-            Pool: userPool
+            Pool: userPool2
         }
+
+        let poolId = userPool.getUserPoolId();
 
         let cognitoUser = new AmazonCognitoIdentity.CognitoUser(userData);
         // cognitoUser.authenticateUser(authenticationDetails, {
@@ -71,7 +84,7 @@ exports.Login = (body) => {
         // })
 
         cognitoUser.authenticateUser(authenticationDetails, (err, res) => {
-            if(err){
+            if (err) {
                 console.error(err);
             }
             console.log(res)

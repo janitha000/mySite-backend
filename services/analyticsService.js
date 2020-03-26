@@ -2,7 +2,7 @@ const AWS = require('aws-sdk')
 
 exports.getSentiments = (text) => {
     return new Promise((resolve, reject) => {
-        AWS.config.update({region:'us-east-1'});
+        AWS.config.loadFromPath('D:\\Development\\MySite\\Backend\\AWSConfig.json')
 
         let comprehend = new AWS.Comprehend({apiVersion: '2017-11-27'});
 

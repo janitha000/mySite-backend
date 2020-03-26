@@ -4,7 +4,7 @@ const router = express.Router();
 const analyticController = require('../controllers/analyticsController')
 
 router.post('/sentiment', (req, res, next) => {
-    analyticController.getSentiment(req,res,next);
+    analyticController.getSentiment(req, res, next);
 })
 
 
