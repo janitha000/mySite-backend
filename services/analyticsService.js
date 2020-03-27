@@ -2,7 +2,8 @@ const AWS = require('aws-sdk')
 
 exports.getSentiments = (text) => {
     return new Promise((resolve, reject) => {
-        AWS.config.loadFromPath('D:\\Development\\MySite\\Backend\\AWSConfig.json')
+        console.log(process.cwd())
+        AWS.config.loadFromPath('configs/AWSConfig.json')
 
         let comprehend = new AWS.Comprehend({apiVersion: '2017-11-27'});
 

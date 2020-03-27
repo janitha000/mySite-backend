@@ -1,8 +1,9 @@
 const request = require('request');
 const jwkToPem = require('jwk-to-pem')
 const jwt = require('jsonwebtoken')
+const {OAuth2Client} = require('google-auth-library')
 
-exports.Validate = function (req, res, next) {
+exports.ValidateAWS = function (req, res, next) {
     let token = req.header.authentication;
     const userPoolId = 'us-east-1_ujnSFe4tP';
     const pool_region = 'US-EAST-1'
@@ -48,6 +49,36 @@ exports.Validate = function (req, res, next) {
             res.status(405000).send(error);
         }
     });
+
+
+}
+
+exports.ValidateGoogle =async (req,res,next) => {
+    let token = req.headers['authorization'];
+    token = token.split(' ')[1];
+    token = token.replace('%', '/')
+
+
+    let client = new OAuth2Client("386958280-koi0ufa7pflsl0trdolj7gklr3oe2t0q.apps.googleusercontent.com");
+    try{
+        if(token){
+            const ticket = await client.verifyIdToken({
+                idToken : token
+            });
+            const payload = ticket.getPayload();
+            const userId = payload['sub'];
+            return next();
+    
+        }
+        else{
+            res.status(401).send('Accesstoken not available')
+        }
+    }
+    catch(err){
+        console.error(err);
+        res.status(500).send(err)
+
+    }
 
 
 }

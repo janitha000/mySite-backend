@@ -11,4 +11,13 @@ router.post('/register', (req, res, next) => {
     authController.Register(req, res, next)
 })
 
+router.get('/google', (req, res, next) => {
+    authController.GetGoogleLoginUrl(req, res, next);
+})
+
+router.get('/google/login', (req, res, next) => {
+    authController.GoogleLogin(req, res, next);
+})
+
+
 module.exports = router;
