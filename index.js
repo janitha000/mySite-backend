@@ -1,9 +1,13 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
+const jwt = require("express-jwt");
+const jwksRsa = require("jwks-rsa");
 
 const http = require('http');
 const socketIO = require('socket.io')
+require("dotenv").config();
+
 
 const app = express();
 app.use(cors())
@@ -26,12 +30,15 @@ const redisService = require('./services/redisService')
 redisService.startConnection();
 
 
-app.get('/', (req, res) => res.send({status: "Welcome to my site github integration"}));
+
+
+app.get('/', (req, res) => res.send({ status: "Welcome to my site github integration" }));
 
 app.use('/repositories', repoRouter)
 app.use('/auth', authRouter)
 app.use('/queue', queueRouter)
 app.use('/analytics', analyticsRouter)
+
 
 server.listen(port, () => {
     console.log('Application is running and listening on port 3001')

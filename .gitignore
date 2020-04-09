@@ -1,1 +1,5 @@
 node_modules/
+configs/GoogleConfig.json
+configs/AuthoConfig.json
+configs/AWSConfig.json
+.env
