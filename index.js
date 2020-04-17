@@ -1,8 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
-const jwt = require("express-jwt");
-const jwksRsa = require("jwks-rsa");
 
 const http = require('http');
 const socketIO = require('socket.io')
@@ -23,6 +21,7 @@ const repoRouter = require('./routes/repositoryRoutes');
 const authRouter = require('./routes/authRoutes');
 const queueRouter = require('./routes/queueRoutes');
 const analyticsRouter = require('./routes/analyticsRoutes');
+const movieRouter = require('./routes/movieRoutes');
 
 const socketIOService = require('./services/socketIOService');
 socketIOService.start(io);
@@ -38,6 +37,7 @@ app.use('/repositories', repoRouter)
 app.use('/auth', authRouter)
 app.use('/queue', queueRouter)
 app.use('/analytics', analyticsRouter)
+app.use('/movies', movieRouter)
 
 
 server.listen(port, () => {

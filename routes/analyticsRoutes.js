@@ -13,6 +13,9 @@ router.post('/sentiment', checkJwt, (req, res, next) => {
     analyticController.getSentiment(req, res, next);
 })
 
+router.post('/calculation', checkJwt, (req, res, next) => {
+    analyticController.getCalculation(req, res, next);
+})
 
 module.exports = router;
 

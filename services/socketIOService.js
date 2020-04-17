@@ -1,16 +1,17 @@
 const redisService = require('./redisService');
 
-let io;
+let ioClient;
 
 module.exports =  {
     start : (io) => {
-        io = io;
+        ioClient = io;
         io.on('connection', (socket) => {
-            console.log(`user with ${socket.handshake.query.userId} connected`);
+            //console.log(`user with ${socket.handshake.query.userId} connected`);
+            console.log('User Connected')
             
             redisService.setData(socket.handshake.query.userId, socket.id);
-            socket.emit('ConnectonEvent', `React user with user id ${socket.handshake.query.userId} connected`)
-            socket.broadcast.emit('ConnectonEvent', `React user with user id ${socket.handshake.query.userId} connected`)
+            socket.emit('ConnectionEvent', `React user with user id ${socket.handshake.query.userId} connected`)
+            socket.broadcast.emit('ConnectionEvent', `React user with user id ${socket.handshake.query.userId} connected`)
 
 
             io.to()
@@ -29,7 +30,9 @@ module.exports =  {
     sendDataSingle : (key, event, value) =>{
         let socketId = redisService.getData(key);
         if(socketId != null | socketId != undefined){
-            io.to(socketId).emit(event, value);
+            console.log(`Sending data to event: ${event} to socket id: ${key} value: ${value}`)
+            //ioClient.sockets.socket(socketId).emit(event, value);
+            ioClient.to(socketId).emit(event, value);
         }
     }
 
