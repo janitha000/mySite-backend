@@ -92,6 +92,33 @@ exports.addMovieKeyPhrases = (movieId, ketPhrases) => {
     })  
 }
 
+exports.addOMDBData = (movieId, omdbData) => {
+    var params = {
+        TableName:table,
+        Key:{
+            "id": parseInt(movieId)
+        },
+        UpdateExpression: "set omdbData =:a",
+        ExpressionAttributeValues:{
+            ":a":omdbData
+        },
+        ReturnValues:"UPDATED_NEW"
+    };
+    
+    console.log("Updating the item...");
+    return new Promise((resolve, reject) => {
+        docClient.update(params, function(err, data) {
+            if (err) {
+                console.error("Unable to update item. Error JSON:", JSON.stringify(err, null, 2));
+                return reject(err)
+            } else {
+                console.log("UpdateItem succeeded:");
+                resolve(data);
+            }
+        });
+    })  
+}
+
 function removeEmptyStringElements(obj) {
     for (var prop in obj) {
         if (typeof obj[prop] === 'object') {// dive deeper in

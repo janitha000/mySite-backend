@@ -19,4 +19,8 @@ router.post('/keyPhrases/:id', (req, res, next) => {
     movieController.getMovieKeyPhrases(req, res, next)
 })
 
+router.get('/:id/omdb/:name', (req, res, next) => {
+    movieController.getOMDBMovieByName(req, res, next)
+})
+
 module.exports = router;

@@ -1,8 +1,11 @@
 const TMDBMovieService = require('../services/MovieService/TMDBMovieService');
+const OMDBMovieService = require('../services/MovieService/OMDBMovieService');
 const analysticService = require('../services/analyticsService');
 const dynmoDbService = require('../storage/dynmoDbService');
 
 let tmdbMovieService = new TMDBMovieService();
+let oMDBMovieService = new OMDBMovieService();
+
 
 exports.getMovieById = (req, res, next) => {
     let movieId = req.params.id
@@ -54,4 +57,18 @@ exports.getMovieKeyPhrases = async (req, res, next) => {
     } catch (err) {
         res.status(500).send(err);
     }
+}
+
+exports.getOMDBMovieByName = async (req, res, next) => {
+    try{
+        let movieName = req.params.name;
+        let id = req.params.id;
+        let result = await oMDBMovieService.getMovieByName(id, movieName);
+        res.status(200).send(result)
+    }
+    catch(err){
+        res.status(500).send(err);
+
+    }
+    
 }

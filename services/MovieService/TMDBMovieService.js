@@ -1,9 +1,9 @@
 const constants = require('../../utli/apiRoutes');
 const axios = require('axios');
 const dynmoDbService = require('../../storage/dynmoDbService');
-const analyticService = require('../analyticsService');
 
 let token = '';
+
 
 module.exports = class TMDBMovieService {
     constructor() {
