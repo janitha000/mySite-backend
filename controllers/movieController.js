@@ -2,6 +2,7 @@ const TMDBMovieService = require('../services/MovieService/TMDBMovieService');
 const OMDBMovieService = require('../services/MovieService/OMDBMovieService');
 const analysticService = require('../services/analyticsService');
 const dynmoDbService = require('../storage/dynmoDbService');
+const MovieService = require('../services/MovieService/MovieService')
 
 let tmdbMovieService = new TMDBMovieService();
 let oMDBMovieService = new OMDBMovieService();
@@ -9,8 +10,16 @@ let oMDBMovieService = new OMDBMovieService();
 
 exports.getMovieById = (req, res, next) => {
     let movieId = req.params.id
-    tmdbMovieService.getMovieById(movieId).then(result => {
+    MovieService.getMovie(movieId).then(result => {
         res.status(200).send(result);
+    }).catch(err => {
+        res.status(500).send(err);
+    })
+}
+
+exports.geMovieList = (req, res, next) => {
+    MovieService.getMovieList().then(result => {
+        res.status(200).send(result)
     }).catch(err => {
         res.status(500).send(err);
     })

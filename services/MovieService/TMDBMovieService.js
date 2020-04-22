@@ -21,32 +21,25 @@ module.exports = class TMDBMovieService {
     getMovieById = (movieId) => {
         let route = `${constants.TMDBRoutes.MOVIE_BY_ID}/${movieId}`
         return new Promise(async (resolve, reject) => {
-            try{
-                let dbValue = await dynmoDbService.getItemById(movieId)
-                if (dbValue && dbValue != "{}" && dbValue.Item != undefined) {
-                    let result = {
-                        data : dbValue.Item
-                    };
-                    return resolve(result);
-                } else {
-                    axios.get(route, {
-                        headers: {
-                            Authorization: 'Bearer ' + token,
-                            "Accept-Language": 'eng'
-                        }
-                    }).then(response => {
-                        dynmoDbService.addItem(response.data.data);
-                        return resolve(response.data);
-                    }).catch(err => {
-                        console.error(err);
-                        return reject(err);
-                    })
-                }
+            try {
+                axios.get(route, {
+                    headers: {
+                        Authorization: 'Bearer ' + token,
+                        "Accept-Language": 'eng'
+                    }
+                }).then(response => {
+                    //dynmoDbService.addItem(response.data.data);
+                    return resolve(response.data.data);
+                }).catch(err => {
+                    console.error(err);
+                    return reject(err);
+                })
+
             }
-            catch(err){
+            catch (err) {
                 console.error(err);
             }
-            
+
 
         })
     }

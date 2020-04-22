@@ -3,6 +3,10 @@ const router = express.Router();
 
 const movieController = require('../controllers/movieController')
 
+router.get('/', (req, res, next) => {
+    movieController.geMovieList(req, res, next)
+})
+
 router.get('/:id', (req, res, next) => {
     movieController.getMovieById(req, res, next)
 })
