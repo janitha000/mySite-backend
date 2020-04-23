@@ -25,8 +25,8 @@ const movieRouter = require('./routes/movieRoutes');
 
 const socketIOService = require('./services/socketIOService');
 socketIOService.start(io);
-const redisService = require('./services/redisService')
-redisService.startConnection();
+// const redisService = require('./services/redisService')
+// redisService.startConnection();
 
 
 
