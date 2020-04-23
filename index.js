@@ -13,7 +13,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 app.use(bodyParser.json())
 
 const server = http.createServer(app);
-const port = 3001;
+let port = process.env.port;
+if(!port)
+    port = 3001
+
 
 const io = socketIO(server);
 
@@ -23,8 +26,8 @@ const queueRouter = require('./routes/queueRoutes');
 const analyticsRouter = require('./routes/analyticsRoutes');
 const movieRouter = require('./routes/movieRoutes');
 
-const socketIOService = require('./services/socketIOService');
-socketIOService.start(io);
+//const socketIOService = require('./services/socketIOService');
+//socketIOService.start(io);
 // const redisService = require('./services/redisService')
 // redisService.startConnection();
 
@@ -41,5 +44,5 @@ app.use('/movies', movieRouter)
 
 
 server.listen(port, () => {
-    console.log('Application is running and listening on port 3001')
+    console.log(`Application is running and listening on port ${port}`)
 })
