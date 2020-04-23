@@ -9,7 +9,7 @@ const {ValidateGoogle}  = require('../middleware/authMiddleware')
 const {checkJwt} = require('../middleware/auth0Middleware')
 
 
-router.post('/sentiment', checkJwt, (req, res, next) => {
+router.post('/sentiment', (req, res, next) => {
     analyticController.getSentiment(req, res, next);
 })
 

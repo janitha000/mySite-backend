@@ -1,14 +1,11 @@
 const AWS = require('aws-sdk')
 
-AWS.config.loadFromPath('configs/AWSConfig.json')
-AWS.config.update({ endpoint: "https://dynamodb.ap-southeast-1.amazonaws.com" });
-// AWS.config.update({
-//     endpoint: "arn:aws:dynamodb:us-east-1:628640267234:table/movie-db",
-//     credentials: {
-//         accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-//         secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
-//       }
-// });
+//AWS.config.update({ endpoint: "https://dynamodb.ap-southeast-1.amazonaws.com" });
+AWS.config.update({
+    region: process.env.AWS_REGION,
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+});
 
 var docClient = new AWS.DynamoDB.DocumentClient();
 var table = "movie-db";

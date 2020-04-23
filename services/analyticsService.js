@@ -1,11 +1,16 @@
 const AWS = require('aws-sdk')
-const {sendDataSingle} = require('../services/socketIOService')
-const {getData} = require('../services/redisService')
+const { sendDataSingle } = require('../services/socketIOService')
+const { getData } = require('../services/redisService')
 
 exports.getSentiments = (text) => {
     return new Promise((resolve, reject) => {
-        console.log(process.cwd())
-        AWS.config.loadFromPath('configs/AWSConfig.json')
+        console.log(process.env.AWS_ACCESS_KEY_ID)
+        AWS.config.update({
+            region: process.env.AWS_REGION,
+            accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+            secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY
+        });
+        //AWS.config.loadFromPath('configs/AWSConfig.json')
 
         let comprehend = new AWS.Comprehend({ apiVersion: '2017-11-27' });
         let params = {
@@ -68,5 +73,5 @@ exports.getCalculation = (inputOneS, inputTwoS, operation, tokenHeader) => {
         sendDataSingle(socketId, 'CALCULATION', result);
         console.log('Result Sent')
     })
-   
+
 }
