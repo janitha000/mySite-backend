@@ -34,7 +34,7 @@ const movieRouter = require('./routes/movieRoutes');
 
 
 
-app.get('/', (req, res) => res.send({ status: "Welcome to my site github integration" }));
+app.get('/', (req, res) => res.send({ status: "to my site from docker" }));
 
 app.use('/repositories', repoRouter)
 app.use('/auth', authRouter)

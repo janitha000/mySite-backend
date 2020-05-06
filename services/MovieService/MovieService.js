@@ -1,6 +1,7 @@
 const TMDBMovieService = require('./TMDBMovieService');
 const OMDBMovieService = require('./OMDBMovieService');
 const dynmoDbService = require('../../storage/dynmoDbService');
+const storageService = require('../../storage/StorageService')
 
 let tmdbMovieService = new TMDBMovieService();
 let oMDBMovieService = new OMDBMovieService();
@@ -9,7 +10,8 @@ let oMDBMovieService = new OMDBMovieService();
 exports.getMovie = (movieId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let dbValue = await dynmoDbService.getItemById(movieId);
+            // let dbValue = await dynmoDbService.getItemById(movieId);
+            let dbValue = await storageService.DynmodbGetItemById(movieId);
             if (dbValue && dbValue != "{}" && dbValue.Item != undefined) {
                 let dbItem = dbValue.Item;
                 if (dbItem.omdbData) {

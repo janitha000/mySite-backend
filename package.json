@@ -4,6 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "start": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "nodemon index.js"
   },
@@ -37,6 +38,7 @@
     "request": "^2.88.2",
     "socket.io": "^2.3.0",
     "url": "^0.11.0",
-    "util": "^0.12.2"
+    "util": "^0.12.2",
+    "winston": "^3.2.1"
   }
 }

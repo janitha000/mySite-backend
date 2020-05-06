@@ -6,4 +6,4 @@ RUN apk add --no-cache bash
 COPY . .
 ENV PORT=3001
 EXPOSE $PORT
-CMD ["node", "index.js"]
+CMD ["npm", "start"]
