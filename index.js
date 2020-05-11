@@ -2,6 +2,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors')
 
+const logger = require('./utli/logger')
+
 const http = require('http');
 const socketIO = require('socket.io')
 require("dotenv").config();
@@ -14,7 +16,7 @@ app.use(bodyParser.json())
 
 const server = http.createServer(app);
 let port = process.env.port;
-if(!port)
+if (!port)
     port = 3001
 
 
@@ -28,8 +30,8 @@ const movieRouter = require('./routes/movieRoutes');
 
 //const socketIOService = require('./services/socketIOService');
 //socketIOService.start(io);
- const redisService = require('./services/redisService')
- redisService.startConnection();
+const redisService = require('./services/redisService')
+redisService.startConnection();
 
 
 
@@ -45,4 +47,5 @@ app.use('/movies', movieRouter)
 
 server.listen(port, () => {
     console.log(`Application is running and listening on port ${port}`)
+    logger.info(`Application is running and listening on port ${port}`)
 })

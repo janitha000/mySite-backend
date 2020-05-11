@@ -1,0 +1,36 @@
+version: "3.8"
+services:
+
+  redis-service:
+    redis:
+    image: redis:latest
+    command: ["redis-server", "--bind", "redis", "--port", "6379"]
+    deploy:
+      restart_policy:
+        condition: on-failure
+
+  node-service:
+    image: janitha000/github-microservice:latest
+    volumes:
+      - ./logs:/logs
+    deploy:
+      restart_policy:
+        condition: always
+    env_file:
+        - ./env-server
+    ports:
+        - "3001:3001"
+  react-service:
+        image: janitha000/movies-frontend:1.0.3
+        deploy:
+                restart_policy:
+                        condition: always
+        ports:
+                - "3000:3000"
+        stdin_open: true
+        volumes:
+                - ./auth0.js:/app/src/Secrets/auth0.js 
+
+networks:
+  backend:
+    driver: bridge

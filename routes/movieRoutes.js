@@ -1,6 +1,8 @@
 const express = require('express')
 const router = express.Router();
-const {checkJwt} = require('../middleware/auth0Middleware')
+const { checkJwt } = require('../middleware/auth0Middleware');
+const jwtAuthz = require('express-jwt-authz')
+
 
 
 const movieController = require('../controllers/movieController')
@@ -9,7 +11,7 @@ router.get('/', (req, res, next) => {
     movieController.geMovieList(req, res, next)
 })
 
-router.get('/:id',(req, res, next) => {
+router.get('/:id', checkJwt, (req, res, next) => {
     movieController.getMovieById(req, res, next)
 })
 
@@ -30,3 +32,4 @@ router.get('/:id/omdb/:name', (req, res, next) => {
 })
 
 module.exports = router;
+
